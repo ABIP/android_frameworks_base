@@ -533,6 +533,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // Screenshot/screen record trigger states
     // Time to volume and power must be pressed within this interval of each other.
     private static final long ACTION_CHORD_DEBOUNCE_DELAY_MILLIS = 150;
+    private static final long SCREENSHOT_CHORD_DEBOUNCE_DELAY_MILLIS = 150;
     // Increase the chord delay when taking a screenshot from the keyguard
     private static final float KEYGUARD_SCREENSHOT_CHORD_DELAY_MULTIPLIER = 2.5f;
     private boolean mScreenshotChordEnabled;
@@ -4676,8 +4677,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     };
 
     private void performScreenRecord() {
-        final Intent recordIntent = new Intent("org.chameleonos.action.NOTIFY_RECORD_SERVICE");
-        mContext.sendBroadcast(recordIntent, Manifest.permission.RECORD_SCREEN);
+        final Intent recordIntent = new Intent("com.mokee.action.NOTIFY_RECORD_SERVICE");
+        mContext.sendBroadcast(recordIntent, "android.permission.RECORD_SCREEN");
     }
 
     /** {@inheritDoc} */
