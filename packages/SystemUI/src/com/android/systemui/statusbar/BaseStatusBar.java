@@ -79,9 +79,10 @@ import com.android.internal.util.cm.SpamFilter.SpamContract.NotificationTable;
 import com.android.internal.util.cm.SpamFilter.SpamContract.PackageTable;
 import com.android.internal.widget.SizeAdaptiveLayout;
 import com.android.systemui.R;
-import com.android.systemui.RecentsComponent;
+//import com.android.systemui.RecentsComponent;
 import com.android.systemui.SearchPanelView;
 import com.android.systemui.SystemUI;
+import com.android.systemui.slimrecent.RecentController;
 import com.android.systemui.cm.SpamMessageProvider;
 import com.android.systemui.statusbar.NotificationData.Entry;
 import com.android.systemui.statusbar.phone.KeyguardTouchDelegate;
@@ -182,7 +183,7 @@ public abstract class BaseStatusBar extends SystemUI implements
     private boolean mDeviceProvisioned = false;
     private int mAutoCollapseBehaviour;
 
-    private RecentsComponent mRecents;
+    private RecentController mRecents;
 
     private ArrayList<String> mDndList;
     private ArrayList<String> mBlacklist;
@@ -324,7 +325,7 @@ public abstract class BaseStatusBar extends SystemUI implements
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
-        mRecents = getComponent(RecentsComponent.class);
+        mRecents = new RecentController(mContext);
 
         mLocale = mContext.getResources().getConfiguration().locale;
         mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
@@ -688,8 +689,8 @@ public abstract class BaseStatusBar extends SystemUI implements
 
     protected void toggleRecentsActivity() {
         if (mRecents != null) {
-            mRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView(),
-                    mExpandedDesktopStyle);
+            mRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView()/*,
+                    mExpandedDesktopStyle*/);
         }
     }
 
@@ -708,6 +709,12 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected void closeRecents() {
         if (mRecents != null) {
             mRecents.closeRecents();
+        }
+    }
+
+    protected void rebuildRecentsScreen() {
+        if (mRecents != null) {
+            mRecents.rebuildRecentsScreen();
         }
     }
 
