@@ -3867,6 +3867,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 if (mSettingsPanel != null) {
                     mSettingsPanel.setBackgroundDrawables();
                 }
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.RECENT_CARD_BG_COLOR))) {
+                rebuildRecentsScreen();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.RECENT_CARD_TEXT_COLOR))) {
+                rebuildRecentsScreen();
             }
         }
 
@@ -3934,6 +3940,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             cr.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.NOTIFICATION_BACKGROUND_ALPHA),
+                    false, this, UserHandle.USER_ALL);
+
+            cr.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.RECENT_CARD_BG_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            cr.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.RECENT_CARD_TEXT_COLOR),
                     false, this, UserHandle.USER_ALL);
 
         }
