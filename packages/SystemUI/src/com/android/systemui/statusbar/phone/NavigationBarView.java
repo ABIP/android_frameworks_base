@@ -331,8 +331,7 @@ public class NavigationBarView extends LinearLayout {
             (ImageView) (mCurrentView == null ? null : mCurrentView.findViewWithTag(NavbarEditor.NAVBAR_ALWAYS_MENU)),
             (ImageView) (mCurrentView == null ? null : mCurrentView.findViewWithTag(NavbarEditor.NAVBAR_MENU_BIG)),
             (ImageView) getSearchLight(),
-            (ImageView) getCameraButton(),
-            (ImageView) getNotifsButton()
+            (ImageView) getCameraButton()
         };
 
         final ArrayList<Animator> anims = new ArrayList<Animator>();

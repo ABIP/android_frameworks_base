@@ -29,9 +29,11 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.text.InputType;
 import android.text.Layout;
@@ -322,6 +324,8 @@ public class InputMethodService extends AbstractInputMethodService {
     
     int mStatusIcon;
     int mBackDisposition;
+
+    Handler mHandler;
 
     private Window mWindowIme;
     private int mAnimationDuration;
@@ -783,6 +787,7 @@ public class InputMethodService extends AbstractInputMethodService {
         mCandidatesVisibility = getCandidatesHiddenVisibility();
         mCandidatesFrame.setVisibility(mCandidatesVisibility);
         mInputFrame.setVisibility(View.GONE);
+        mHandler = new Handler();
     }
 
     @Override 

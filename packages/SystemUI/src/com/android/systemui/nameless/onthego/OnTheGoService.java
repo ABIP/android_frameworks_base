@@ -35,6 +35,7 @@ import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.TextureView;
@@ -116,9 +117,10 @@ public class OnTheGoService extends Service {
         public void onReceive(Context context, Intent intent) {
             synchronized (mRestartObject) {
                 final ContentResolver resolver = getContentResolver();
-                final boolean restartService = Settings.System.getBoolean(resolver,
-                        Settings.System.ON_THE_GO_SERVICE_RESTART,
-                        false);
+                final boolean restartService =
+                        Settings.System.getIntForUser(resolver,
+                                Settings.System.ON_THE_GO_SERVICE_RESTART,
+                                0, UserHandle.USER_CURRENT) != 0;
                 if (restartService) {
                     restartOnTheGo();
                 } else {

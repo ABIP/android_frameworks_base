@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
@@ -105,16 +106,17 @@ public class OnTheGoDialog extends Dialog {
             findViewById(R.id.onthego_category_1).setVisibility(View.GONE);
         } else {
             final Switch mServiceToggle = (Switch) findViewById(R.id.onthego_service_toggle);
-            final boolean restartService = Settings.System.getBoolean(resolver,
-                    Settings.System.ON_THE_GO_SERVICE_RESTART,
-                    false);
+            final boolean restartService =
+                    Settings.System.getIntForUser(resolver,
+                        Settings.System.ON_THE_GO_SERVICE_RESTART,
+                        0, UserHandle.USER_CURRENT) != 0;
             mServiceToggle.setChecked(restartService);
             mServiceToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    Settings.System.putBoolean(resolver,
+                    Settings.System.putInt(resolver,
                             Settings.System.ON_THE_GO_SERVICE_RESTART,
-                            b);
+                            (b ? 1 : 0));
                     dismissOnTheGoDialog(mOnTheGoDialogShortTimeout);
                 }
             });

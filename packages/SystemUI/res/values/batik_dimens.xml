@@ -21,9 +21,6 @@
      for different hardware and product builds. -->
 <resources>
 
-    <!-- DSB color transiion duration (ms) -->
-    <integer name="dsb_transition_duration">500</integer>
-
     <!-- Network traffic monitor single-line text size -->
     <dimen name="net_traffic_single_text_size">12dp</dimen>
     <!-- Network traffic monitor multi-line text size -->
